@@ -1,4 +1,10 @@
 package com.mastery.java.task.dao;
 
-public class EmployeeDao {
+
+import com.mastery.java.task.dto.Employee;
+
+import java.util.List;
+
+public interface EmployeeDao {
+    List<Employee> getAll();
 }
