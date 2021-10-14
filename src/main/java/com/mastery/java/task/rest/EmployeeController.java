@@ -5,8 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/employee")
 public class EmployeeController {
 
     private EmployeeService employeeService;
@@ -16,10 +19,15 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping(value = "/employeeList")
+    @GetMapping()
     public String getAll(Model model) {
-        model.addAttribute("employeeList", employeeService.getAll());
-        return "employeeList";
+        model.addAttribute("employees", employeeService.getAll());
+        return "employee/all";
+    }
 
+    @GetMapping("/{id}")
+    public String getEmployeeId(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("employee", employeeService.getEmployeeId(id));
+        return "employee/show";
     }
 }

@@ -14,6 +14,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
     private JdbcTemplate jdbcTemplate;
 
     private final String GET_ALL = "select * from employee";
+    private final String GET_EMPLOYEE_ID = "select * from employee where id = ?";
 
     @Autowired
     public EmployeeDaoImpl(JdbcTemplate jdbcTemplate) {
@@ -24,5 +25,10 @@ public class EmployeeDaoImpl implements EmployeeDao{
     @Override
     public List<Employee> getAll() {
         return jdbcTemplate.query(GET_ALL, new EmployeeRowMapper());
+    }
+
+    @Override
+    public Employee getEmployeeId(Long id) {
+        return jdbcTemplate.queryForObject(GET_EMPLOYEE_ID, new EmployeeRowMapper());
     }
 }

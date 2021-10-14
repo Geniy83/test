@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface EmployeeDao {
     List<Employee> getAll();
+
+    Employee getEmployeeId(Long id);
 }
