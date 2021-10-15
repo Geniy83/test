@@ -13,9 +13,6 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
     private JdbcTemplate jdbcTemplate;
 
-    private final String GET_ALL = "select * from employee";
-    private final String GET_EMPLOYEE_ID = "select * from employee where id = ?";
-
     @Autowired
     public EmployeeDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -24,11 +21,13 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
     @Override
     public List<Employee> getAll() {
-        return jdbcTemplate.query(GET_ALL, new EmployeeRowMapper());
+        String SQL = "select * from employee";
+        return jdbcTemplate.query(SQL, new EmployeeRowMapper());
     }
 
     @Override
-    public Employee getEmployeeId(Long id) {
-        return jdbcTemplate.queryForObject(GET_EMPLOYEE_ID, new EmployeeRowMapper());
+    public Employee getEmployeeId(Long employeeId) {
+        String SQL = "select * from employee where employee_id = ?";
+        return jdbcTemplate.queryForObject(SQL, new EmployeeRowMapper(), employeeId);
     }
 }

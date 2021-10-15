@@ -26,8 +26,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public String getEmployeeId(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("employee", employeeService.getEmployeeId(id));
+    public String getEmployeeId(@PathVariable("id") Long employeeId, Model model) {
+        model.addAttribute("employee", employeeService.getEmployeeId(employeeId));
         return "employee/show";
     }
 }

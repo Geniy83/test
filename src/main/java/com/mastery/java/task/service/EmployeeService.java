@@ -7,7 +7,7 @@ public interface EmployeeService {
 
     List<Employee> getAll();
 
-    Employee getEmployeeId(Long id);
+    Employee getEmployeeId(Long employeeId);
 
 
 }
