@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Добавление сотрудника</title>
+</head>
+<body>
+<h1>Добавление сотрудника</h1><br>
+<form th:method="POST" th:action="@{/employee}" th:object="${employee}">
+    <p>employeeId</p>
+    <label for="employeeId"></label>
+    <input type="text" th:field="*{employeeId}" id="employeeId"><br><br>
+
+    <p>firstName</p>
+    <label for="firstName"></label>
+    <input type="text" th:field="*{firstName}" id="firstName"><br><br>
+
+    <p>lastName</p>
+    <label for="lastName"></label>
+    <input type="text" th:field="*{lastName}" id="lastName"><br><br>
+
+    <p>departmentID</p>
+    <label for="departmentID"></label>
+    <input type="text" th:field="*{departmentID}" id="departmentID"><br><br>
+
+    <p>jobTitle</p>
+    <label for="jobTitle"></label>
+    <input type="text" th:field="*{jobTitle}" id="jobTitle"><br><br>
+
+    <p>gender ("MALE" or "FEMALE")</p>
+    <label for="gender"></label>
+    <input type="text" th:field="*{gender}" id="gender"><br><br>
+
+<!--    <select th:field="*{gender}">-->
+<!--        <option >MALE</option>-->
+<!--        <option>FEMALE</option>-->
+<!--    </select><br>-->
+
+    <p>dataOfBirth (YYYY-MM-DD)</p><br>
+    <label for="dataOfBirth"></label>
+    <input type="text" th:field="*{dataOfBirth}" id="dataOfBirth"><br><br>
+
+    <input type="submit" value="Добавить">
+</form>
+</body>
+</html>

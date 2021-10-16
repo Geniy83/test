@@ -27,4 +27,19 @@ public class EmployeeServiceImpl implements EmployeeService{
     public Employee getEmployeeId(Long employeeId) {
         return employeeDao.getEmployeeId(employeeId);
     }
+
+    @Override
+    public void save(Employee employee) {
+        employeeDao.save(employee);
+    }
+
+    @Override
+    public void update(Employee employee) {
+        employeeDao.update(employee);
+    }
+
+    @Override
+    public void delete(Long employeeId) {
+        employeeDao.delete(employeeId);
+    }
 }

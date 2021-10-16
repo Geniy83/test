@@ -2,10 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Работник</title>
+    <title>Сотрудник</title>
 </head>
 <body>
-<p th:text="${employee.getEmployeeId}">VALUE</p>
+<h1>Данные сотрудника</h1><br>
+<p th:text="${employee.getEmployeeId()}">VALUE</p>
 <p th:text="${employee.getFirstName()}">VALUE</p>
 <p th:text="${employee.getLastName()}">VALUE</p>
 </body>

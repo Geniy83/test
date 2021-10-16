@@ -21,13 +21,33 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
     @Override
     public List<Employee> getAll() {
-        String SQL = "select * from employee";
+        String SQL = "SELECT * FROM employee";
         return jdbcTemplate.query(SQL, new EmployeeRowMapper());
     }
 
     @Override
     public Employee getEmployeeId(Long employeeId) {
-        String SQL = "select * from employee where employee_id = ?";
+        String SQL = "SELECT * FROM employee WHERE employee_id = ?";
         return jdbcTemplate.queryForObject(SQL, new EmployeeRowMapper(), employeeId);
+    }
+
+    @Override
+    public void save(Employee employee) {
+        String SQL = "INSERT INTO employee (employee_id, first_name, last_name, department_id, job_title, gender, data_of_birth) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(SQL, employee.getEmployeeId(), employee.getFirstName(), employee.getLastName(),
+                employee.getDepartmentID(), employee.getJobTitle(), employee.getGender().toString(), employee.getDataOfBirth());
+    }
+
+    @Override
+    public void update(Employee employee) {
+        String SQL = "UPDATE employee SET first_name=?, last_name=?, department_id=?, job_title=?, gender=?, data_of_birth=? WHERE employee_id=?";
+        jdbcTemplate.update(SQL, employee.getFirstName(), employee.getLastName(), employee.getDepartmentID(),
+                employee.getJobTitle(), employee.getGender(), employee.getDataOfBirth(), employee.getEmployeeId());
+    }
+
+    @Override
+    public void delete(Long employeeId) {
+        String SQL = "DELETE FROM employee WHERE employee_id = ?";
+        jdbcTemplate.update(SQL, employeeId);
     }
 }

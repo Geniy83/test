@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>Все работники</title>
+    <title>Все сотрудники</title>
 </head>
 <body>
-
+<h1>Список всех сотрудников</h1><br>
 <div th:each="employee : ${employees}">
     <a th:href="@{/employee/{id}(id=${employee.getEmployeeId})}" th:text="${employee.getFirstName()}">user</a>
 </div>
