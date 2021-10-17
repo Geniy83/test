@@ -6,8 +6,42 @@
 </head>
 <body>
 <h1>Данные сотрудника</h1><br>
-<p th:text="${employee.getEmployeeId()}">VALUE</p>
-<p th:text="${employee.getFirstName()}">VALUE</p>
-<p th:text="${employee.getLastName()}">VALUE</p>
+
+<table>
+    <tr>
+        <td>Id</td>
+        <td th:text="${employee.getEmployeeId()}">EmployeeId</td>
+    </tr>
+    <tr>
+        <td>First name</td>
+        <td th:text="${employee.getFirstName()}">FirstName</td>
+    </tr>
+    <tr>
+        <td>Last name</td>
+        <td th:text="${employee.getLastName()}">LastName</td>
+    </tr>
+    <tr>
+        <td>Department ID</td>
+        <td th:text="${employee.getDepartmentID()}">DepartmentID</td>
+    </tr>
+    <tr>
+        <td>Job title</td>
+        <td th:text="${employee.getJobTitle()}">JobTitle</td>
+    </tr>
+    <tr>
+        <td>Gender</td>
+        <td th:text="${employee.getGender()}">Gender</td>
+    </tr>
+    <tr>
+        <td>Data of birth</td>
+        <td th:text="${employee.getDataOfBirth()}">DataOfBirth</td>
+    </tr>
+</table>
+<br>
+<a th:href="@{/employee/updateEmployee/{id}(id=${employee.getEmployeeId()})}">Редактировать сотрудника</a>
+
+<br>
+<br>
+<a th:href="@{/employee/deleteEmployee/{id}(id=${employee.getEmployeeId()})}">Удалить сотрудника</a>
 </body>
 </html>

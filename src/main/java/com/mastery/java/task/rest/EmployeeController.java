@@ -41,4 +41,22 @@ public class EmployeeController {
         employeeService.save(employee);
         return "redirect:/employee";
     }
+
+    @GetMapping("/updateEmployee/{id}")
+    public String updateEmployee(@PathVariable("id") Long employeeId, Model model) {
+        model.addAttribute("employee", employeeService.getEmployeeId(employeeId));
+        return "employee/update";
+    }
+
+    @PostMapping("/updateEmployee")
+    public String updateEmployee(@ModelAttribute("employee") Employee employee) {
+        employeeService.update(employee);
+        return "redirect:/employee";
+    }
+
+    @GetMapping("/deleteEmployee/{id}")
+    public String deleteEmployee(@PathVariable("id") Long employeeId) {
+        employeeService.delete(employeeId);
+        return "redirect:/employee";
+    }
 }

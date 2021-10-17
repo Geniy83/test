@@ -1,13 +1,36 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
+    <meta charset="UTF-8">
     <title>Все сотрудники</title>
 </head>
 <body>
 <h1>Список всех сотрудников</h1><br>
-<div th:each="employee : ${employees}">
-    <a th:href="@{/employee/{id}(id=${employee.getEmployeeId})}" th:text="${employee.getFirstName()}">user</a>
-</div>
 
+<table>
+    <tr>
+        <th>Id</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Department ID</th>
+        <th>Job title</th>
+        <th>Gender</th>
+        <th>Data of birth</th>
+    </tr>
+    <div th:each="employee : ${employees}">
+        <tr>
+            <td> <a th:href="@{/employee/{id}(id=${employee.getEmployeeId()})}" th:text="${employee.getEmployeeId}">employee</a></td>
+            <td th:text="${employee.getFirstName()}">FirstName</td>
+            <td th:text="${employee.getLastName()}">LastName</td>
+            <td th:text="${employee.getDepartmentID()}">DepartmentID</td>
+            <td th:text="${employee.getJobTitle()}">JobTitle</td>
+            <td th:text="${employee.getGender()}">Gender</td>
+            <td th:text="${employee.getDataOfBirth()}">DataOfBirth</td>
+        </tr>
+    </div>
+</table>
+<br>
+<hr>
+<a href="/employee/addEmployee">Добавить сотрудника</a>
 </body>
 </html>
