@@ -33,8 +33,8 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
     @Override
     public void save(Employee employee) {
-        String SQL = "INSERT INTO employee (employee_id, first_name, last_name, department_id, job_title, gender, data_of_birth) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(SQL, employee.getEmployeeId(), employee.getFirstName(), employee.getLastName(),
+        String SQL = "INSERT INTO employee (first_name, last_name, department_id, job_title, gender, data_of_birth) VALUES (?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(SQL, employee.getFirstName(), employee.getLastName(),
                 employee.getDepartmentID(), employee.getJobTitle(), employee.getGender().toString(), employee.getDataOfBirth());
     }
 
@@ -42,7 +42,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
     public void update(Employee employee) {
         String SQL = "UPDATE employee SET first_name=?, last_name=?, department_id=?, job_title=?, gender=?, data_of_birth=? WHERE employee_id=?";
         jdbcTemplate.update(SQL, employee.getFirstName(), employee.getLastName(), employee.getDepartmentID(),
-                employee.getJobTitle(), employee.getGender(), employee.getDataOfBirth(), employee.getEmployeeId());
+                employee.getJobTitle(), employee.getGender().toString(), employee.getDataOfBirth(), employee.getEmployeeId());
     }
 
     @Override
