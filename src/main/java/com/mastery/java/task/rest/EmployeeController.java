@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 @RequestMapping("/employee")
 public class EmployeeController {
 
@@ -19,15 +21,13 @@ public class EmployeeController {
     }
 
     @GetMapping()
-    public String getAll(Model model) {
-        model.addAttribute("employees", employeeService.getAll());
-        return "employee/all";
+    public List<Employee> getAll() {
+        return employeeService.getAll();
     }
 
     @GetMapping("/{id}")
-    public String getEmployeeId(@PathVariable("id") Long employeeId, Model model) {
-        model.addAttribute("employee", employeeService.getEmployeeId(employeeId));
-        return "employee/show";
+    public Employee getEmployeeId(@PathVariable("id") Long employeeId) {
+        return employeeService.getEmployeeId(employeeId);
     }
 
     @GetMapping("/addEmployee")
@@ -55,8 +55,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/deleteEmployee/{id}")
-    public String deleteEmployee(@PathVariable("id") Long employeeId) {
+    public void deleteEmployee(@PathVariable("id") Long employeeId) {
         employeeService.delete(employeeId);
-        return "redirect:/employee";
     }
 }
