@@ -30,32 +30,62 @@ public class EmployeeController {
         return employeeService.getEmployeeId(employeeId);
     }
 
-    @GetMapping("/addEmployee")
-    public String addEmployee(Model model) {
-        model.addAttribute("employee", new Employee());
-        return "employee/add";
-    }
-
     @PostMapping()
-    public String create(@ModelAttribute("employee") Employee employee) {
+    public Employee create(@RequestBody Employee employee) {
         employeeService.save(employee);
-        return "redirect:/employee";
+        return employee;
     }
 
-    @GetMapping("/updateEmployee/{id}")
-    public String updateEmployee(@PathVariable("id") Long employeeId, Model model) {
-        model.addAttribute("employee", employeeService.getEmployeeId(employeeId));
-        return "employee/update";
-    }
-
-    @PostMapping("/updateEmployee")
-    public String updateEmployee(@ModelAttribute("employee") Employee employee) {
+    @PutMapping("{id}")
+    public Employee updateEmployee(@PathVariable("id") Long employeeId, @RequestBody Employee employee) {
         employeeService.update(employee);
-        return "redirect:/employee";
+        return employee;
     }
 
-    @GetMapping("/deleteEmployee/{id}")
+    @GetMapping("/delete/{id}")
     public void deleteEmployee(@PathVariable("id") Long employeeId) {
         employeeService.delete(employeeId);
     }
+
+//----------------------------------------------------------------------------------------
+
+//    @GetMapping()
+//    public String getAll(Model model) {
+//        model.addAttribute("employees", employeeService.getAll());
+//        return "employee/all";
+//    }
+//    @GetMapping("/{id}")
+//    public String getEmployeeId(@PathVariable("id") Long employeeId, Model model) {
+//        model.addAttribute("employee", employeeService.getEmployeeId(employeeId));
+//        return "employee/show";
+//    }
+//    @GetMapping("/addEmployee")
+//    public String addEmployee(Model model) {
+//        model.addAttribute("employee", new Employee());
+//        return "employee/add";
+//    }
+//    @PostMapping()
+//    public String create(@ModelAttribute("employee") Employee employee) {
+//        employeeService.save(employee);
+//        return "redirect:/employee";
+//    }
+//
+//    @GetMapping("/updateEmployee/{id}")
+//    public String updateEmployee(@PathVariable("id") Long employeeId, Model model) {
+//        model.addAttribute("employee", employeeService.getEmployeeId(employeeId));
+//        return "employee/update";
+//    }
+//
+//    @PostMapping("/updateEmployee")
+//    public String updateEmployee(@ModelAttribute("employee") Employee employee) {
+//        employeeService.update(employee);
+//        return "redirect:/employee";
+//    }
+//
+//    @GetMapping("/deleteEmployee/{id}")
+//    public String deleteEmployee(@PathVariable("id") Long employeeId) {
+//        employeeService.delete(employeeId);
+//        return "redirect:/employee";
+//    }
+
 }
