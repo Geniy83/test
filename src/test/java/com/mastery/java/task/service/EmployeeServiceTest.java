@@ -1,6 +1,5 @@
 package com.mastery.java.task.service;
 
-import com.mastery.java.task.dao.EmployeeDao;
 import com.mastery.java.task.dao.EmployeeDaoImpl;
 import com.mastery.java.task.dto.Employee;
 import com.mastery.java.task.dto.Gender;
@@ -10,19 +9,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import javax.xml.crypto.Data;
+//import org.mockito.runners.MockitoJUnitRunner;;
 import java.sql.Date;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.when;
+//import static org.mockito.Matchers.any;
+//import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-//@SpringBootTest
 public class EmployeeServiceTest {
 
     @Mock
@@ -33,7 +27,7 @@ public class EmployeeServiceTest {
     private static  Employee testEmployee;
 
     @BeforeClass
-    public void prepareTestData() {
+    public static void prepareTestData() {
         Employee testEmployee = new Employee();
         testEmployee.setEmployeeId(1L);
         testEmployee.setFirstName("Tom");
@@ -48,10 +42,16 @@ public class EmployeeServiceTest {
     public void init() {
         employeeService = new EmployeeServiceImpl(employeeDao);
         }
+
     @Test
     public void updateTest() {
+        Mockito.verify(employeeDao).update(testEmployee);
 //        when(employeeDao.getEmployeeId(any(Long.class))).thenReturn(testEmployee);
 //        when(employeeDao.update(any(Employee.class))).;
-        Mockito.verify(employeeDao, Mockito.times(1));
+    }
+
+    @Test
+    public void deleteTest() {
+        Mockito.verify(employeeDao).delete(testEmployee.getEmployeeId());
     }
 }
