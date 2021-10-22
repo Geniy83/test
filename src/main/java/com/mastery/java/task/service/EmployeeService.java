@@ -15,5 +15,4 @@ public interface EmployeeService {
 
     void  delete(Long employeeId);
 
-
 }
