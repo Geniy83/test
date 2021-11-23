@@ -1,36 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Список всех сотрудников</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var employee = {};
+            $('#btnAddEmployee').click(function () {
+                employee.first_name = $('#txtFirst_name').val();
+                employee.last_name = $('#txtLast_name').val();
+                employee.department_id = $('#txtDepartment_id').val();
+                employee.job_title = $('#txtJob_title').val();
+                employee.job_gender = $('#txtGender').val();
+                employee.data_of_birth = $('#txtData_of_birth').val();
+                var employeeObj = JSON.stringify(employee);
+                $.ajax({
+                    url: 'http://localhost:8080/employee',
+                    method: 'POST',
+                    data: employeeObj,
+                    contentType: 'application/json; charset=UTF-8',
+                    success: function (error) {
+                        alert(error);
+                    }
+                })
+            })
+        })
+    </script>
+
 </head>
 <body>
     <div>
         <table>
             <tr>
                 <td>First_name</td>
-                <td><input type="text" id = "txtFirst_name"></td>
+                <td><label for="txtFirst_name"></label><input type="text" id = "txtFirst_name"></td>
             </tr>
             <tr>
                 <td>Last_name</td>
-                <td><input type="text" id = "txtLast_name"></td>
+                <td><label for="txtLast_name"></label><input type="text" id = "txtLast_name"></td>
             </tr>
             <tr>
                 <td>Department_id</td>
-                <td><input type="text" id = "txtDepartment_id"></td>
+                <td><label for="txtDepartment_id"></label><input type="text" id = "txtDepartment_id"></td>
             </tr>
             <tr>
                 <td>Job_title</td>
-                <td><input type="text" id = "txtJob_title"></td>
+                <td><label for="txtJob_title"></label><input type="text" id = "txtJob_title"></td>
             </tr>
             <tr>
                 <td>Gender</td>
-                <td><input type="text" id = "txtGender"></td>
+                <td><label for="txtGender"></label><input type="text" id = "txtGender"></td>
             </tr>
             <tr>
                 <td>Data_of_birth</td>
-                <td><input type="text" id = "txtData_of_birth"></td>
+                <td><label for="txtData_of_birth"></label><input type="text" id = "txtData_of_birth"></td>
+            </tr>
+            <tr colspan = "2">
+                <td><input type="button" value="Add employee" id="btnAddEmployee"></td>
             </tr>
         </table>
     </div>
