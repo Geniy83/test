@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Список всех сотрудников</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var employee = {};
+            getAllEmployee();
             $('#btnAddEmployee').click(function () {
                 employee.first_name = $('#txtFirst_name').val();
                 employee.last_name = $('#txtLast_name').val();
@@ -19,13 +20,35 @@
                     url: 'http://localhost:8080/employee',
                     method: 'POST',
                     data: employeeObj,
-                    contentType: 'application/json; charset=UTF-8',
-                    success: function (error) {
+                    contentType: 'application/json',
+                    success: function () {
+                        alert('Saved successfully');
+                        getAllEmployee();
+                    },
+                    error: function(error) {
                         alert(error);
                     }
                 })
             })
         })
+
+        function getAllEmployee() {
+            $.ajax({
+                url: "http://localhost:8080/employee",
+                method: "GET",
+                dataType: "json",
+                success: function(data) {
+                    var tableBody = $('#tblEmployee tbody');
+                    tableBody.empty();
+                    $(data).each(function(index, element) {
+                        tableBody.append('<tr><td>' + element.first_name + '</tr><td>' + element.last_name + '</tr></td>');
+                    })
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            })
+        }
     </script>
 
 </head>
@@ -59,6 +82,18 @@
             <tr colspan = "2">
                 <td><input type="button" value="Add employee" id="btnAddEmployee"></td>
             </tr>
+        </table>
+
+        <table border = "1" id = "tblEmployee">
+            <thead>
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
         </table>
     </div>
 </body>
