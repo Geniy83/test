@@ -10,7 +10,7 @@
     </head>
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    function showEmployees() {
         $.get('http://localhost:8080/employee', function (data) {
             console.log(data);
 
@@ -30,14 +30,46 @@
 
             $("#employee").html(table);
         })
+    }
+
+    $(document).ready(function () {
+        showEmployees();
     });
 
+    function send_employee() {
+        $.ajax({
+            url:'http://localhost:8080/employee',
+            dataType: 'json',
+            type: 'POST',
+            cache: false,
+            contentType: 'application/json',
+            data: JSON.stringify({
+                firstName: $("#firstName").val(),
+                lastName: $("#lastName").val(),
+                departmentID: $("#departmentID").val(),
+                jobTitle: $("#jobTitle").val(),
+                gender: $("#gender").val(),
+                dataOfBirth: $("#dataOfBirth").val()
+            }),
+            success: function () {
+                showEmployees()
+            }
+        })
+    }
 </script>
     <body>
     <h2>Список всех сотрудников</h2><br>
         <div id="employee">
-
         </div><br>
+
     <h5>Добавление сотрудников</h5><br>
+
+        <input type="text" id="firstName" placeholder="first name"/><br/>
+        <input type="text" id="lastName" placeholder="last name"/><br/>
+        <input type="text" id="departmentID" placeholder="department id"/><br/>
+        <input type="text" id="jobTitle" placeholder="job title"/><br/>
+        <input type="text" id="gender" placeholder="gender(MALE or FEMALE)"/><br/>
+        <input type="text" id="dataOfBirth" placeholder="data of birth"/><br/>
+        <input type="button" onclick="send_employee()" value="Save"/>
     </body>
 </html>
