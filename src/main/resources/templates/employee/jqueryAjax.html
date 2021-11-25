@@ -1,100 +1,43 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Список всех сотрудников</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var employee = {};
-            getAllEmployee();
-            $('#btnAddEmployee').click(function () {
-                employee.first_name = $('#txtFirst_name').val();
-                employee.last_name = $('#txtLast_name').val();
-                employee.department_id = $('#txtDepartment_id').val();
-                employee.job_title = $('#txtJob_title').val();
-                employee.job_gender = $('#txtGender').val();
-                employee.data_of_birth = $('#txtData_of_birth').val();
-                var employeeObj = JSON.stringify(employee);
-                $.ajax({
-                    url: 'http://localhost:8080/employee',
-                    method: 'POST',
-                    data: employeeObj,
-                    contentType: 'application/json',
-                    success: function () {
-                        alert('Saved successfully');
-                        getAllEmployee();
-                    },
-                    error: function(error) {
-                        alert(error);
-                    }
-                })
-            })
+    <head>
+        <meta charset="UTF-8">
+        <title>Список всех сотрудников</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    </head>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.get('http://localhost:8080/employee', function (data) {
+            console.log(data);
+
+            let table ="<table border='1'><tr><th>First name</th><th>Last name</th><th>Department ID</th><th>Job title</th><th>Gender</th><th>Data of birth</th></tr>";
+
+            for (i = 0; i < data.length; i++) {
+                table = table +
+                    "</td><td>" + data[i].firstName +
+                    "</td><td>" + data[i].lastName +
+                    "</td><td>" + data[i].departmentID +
+                    "</td><td>" + data[i].jobTitle +
+                    "</td><td>" + data[i].gender +
+                    "</td><td>" + data[i].dataOfBirth +
+                    "</td></tr>";
+            }
+            table = table + "</table>"
+
+            $("#employee").html(table);
         })
+    });
 
-        function getAllEmployee() {
-            $.ajax({
-                url: "http://localhost:8080/employee",
-                method: "GET",
-                dataType: "json",
-                success: function(data) {
-                    var tableBody = $('#tblEmployee tbody');
-                    tableBody.empty();
-                    $(data).each(function(index, element) {
-                        tableBody.append('<tr><td>' + element.first_name + '</tr><td>' + element.last_name + '</tr></td>');
-                    })
-                },
-                error: function (error) {
-                    alert(error);
-                }
-            })
-        }
-    </script>
+</script>
+    <body>
+    <h2>Список всех сотрудников</h2><br>
+        <div id="employee">
 
-</head>
-<body>
-    <div>
-        <table>
-            <tr>
-                <td>First_name</td>
-                <td><label for="txtFirst_name"></label><input type="text" id = "txtFirst_name"></td>
-            </tr>
-            <tr>
-                <td>Last_name</td>
-                <td><label for="txtLast_name"></label><input type="text" id = "txtLast_name"></td>
-            </tr>
-            <tr>
-                <td>Department_id</td>
-                <td><label for="txtDepartment_id"></label><input type="text" id = "txtDepartment_id"></td>
-            </tr>
-            <tr>
-                <td>Job_title</td>
-                <td><label for="txtJob_title"></label><input type="text" id = "txtJob_title"></td>
-            </tr>
-            <tr>
-                <td>Gender</td>
-                <td><label for="txtGender"></label><input type="text" id = "txtGender"></td>
-            </tr>
-            <tr>
-                <td>Data_of_birth</td>
-                <td><label for="txtData_of_birth"></label><input type="text" id = "txtData_of_birth"></td>
-            </tr>
-            <tr colspan = "2">
-                <td><input type="button" value="Add employee" id="btnAddEmployee"></td>
-            </tr>
-        </table>
-
-        <table border = "1" id = "tblEmployee">
-            <thead>
-                <tr>
-                    <th>First name</th>
-                    <th>Last name</th>
-                </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
-    </div>
-</body>
+        </div><br>
+    <h5>Добавление сотрудников</h5><br>
+    </body>
 </html>
