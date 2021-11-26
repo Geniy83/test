@@ -25,7 +25,8 @@
                     "</td><td>" + data[i].jobTitle +
                     "</td><td>" + data[i].gender +
                     "</td><td>" + data[i].dataOfBirth +
-                    "</td><td><button onclick='delete_employee("+ data[i].employeeId +")'>Delete</button> <button onclick='update_employee'>Update</button> </td></tr>";
+                    "</td><td><button onclick='delete_employee("+ data[i].employeeId +")'>Delete</button> " +
+                    "<button onclick='update_employee("+ data[i].employeeId +")'>Update</button> </td></tr>";
             }
             table = table + "</table>"
 
@@ -38,10 +39,23 @@
     });
 
     function send_employee() {
+
+        let dynamicURL = '';
+        let methodName = '';
+        let employeeId = $("#employeeId").val();
+
+        if (employeeId) {
+            dynamicURL = 'http://localhost:8080/employee/' + employeeId;
+            methodName = 'PUT';
+        } else {
+            dynamicURL = 'http://localhost:8080/employee';
+            methodName = 'POST';
+        }
+
         $.ajax({
-            url:'http://localhost:8080/employee',
+            url: dynamicURL,
             dataType: 'json',
-            type: 'POST',
+            type: methodName,
             cache: false,
             contentType: 'application/json',
             data: JSON.stringify({
@@ -66,12 +80,26 @@
     }
 
     function reset() {
+        $("#employeeId").val('');
         $("#firstName").val('');
         $("#lastName").val('');
         $("#departmentID").val('');
         $("#jobTitle").val('');
         $("#gender").val('');
         $("#dataOfBirth").val('');
+    }
+
+    function update_employee(employeeId) {
+        $.get('http://localhost:8080/employee/' + employeeId, function (data) {
+            $("#employeeId").val(data.employeeId);
+            $("#firstName").val(data.firstName);
+            $("#lastName").val(data.lastName);
+            $("#departmentID").val(data.departmentID);
+            $("#jobTitle").val(data.jobTitle);
+            $("#gender").val(data.gender);
+            $("#dataOfBirth").val(data.dataOfBirth);
+            showEmployees();
+        })
     }
 
 </script>
@@ -82,6 +110,7 @@
 
     <h5>Добавление сотрудников</h5><br>
 
+        <input type="text" id="employeeId" placeholder="employee id"/><br/>
         <input type="text" id="firstName" placeholder="first name"/><br/>
         <input type="text" id="lastName" placeholder="last name"/><br/>
         <input type="text" id="departmentID" placeholder="department id"/><br/>
