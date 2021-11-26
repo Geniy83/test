@@ -10,11 +10,12 @@
     </head>
 
 <script type="text/javascript">
+
     function showEmployees() {
         $.get('http://localhost:8080/employee', function (data) {
             console.log(data);
 
-            let table ="<table border='1'><tr><th>First name</th><th>Last name</th><th>Department ID</th><th>Job title</th><th>Gender</th><th>Data of birth</th></tr>";
+            let table ="<table border='1'><tr><th>First name</th><th>Last name</th><th>Department ID</th><th>Job title</th><th>Gender</th><th>Data of birth</th><th>Actions</th></tr>";
 
             for (i = 0; i < data.length; i++) {
                 table = table +
@@ -24,7 +25,7 @@
                     "</td><td>" + data[i].jobTitle +
                     "</td><td>" + data[i].gender +
                     "</td><td>" + data[i].dataOfBirth +
-                    "</td></tr>";
+                    "</td><td><button onclick='delete_employee("+ data[i].employeeId +")'>Delete</button> <button onclick='update_employee'>Update</button> </td></tr>";
             }
             table = table + "</table>"
 
@@ -56,6 +57,13 @@
             }
         })
     }
+
+    function delete_employee(employeeId) {
+        $.get('http://localhost:8080/employee/delete/' + employeeId, function (data) {
+            showEmployees();
+        })
+    }
+
 </script>
     <body>
     <h2>Список всех сотрудников</h2><br>
