@@ -13,6 +13,6 @@ allowing CRUD operations. Implementation Main App used Java 8, Maven, Spring JDB
 
 Unit Tests* - Written a couple of Unit Tests using JUnit 4 and Mockito framework
 
-UI** - The task has not been completed. It will take time to study. For general development of my knowledge, started learning JavaScript, for JSON requests
+UI** - To make HTTP requests to the application are used Ajax-requests (JSON)
   
 

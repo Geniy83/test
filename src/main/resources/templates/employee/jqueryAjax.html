@@ -40,8 +40,8 @@
 
     function send_employee() {
 
-        let dynamicURL = '';
-        let methodName = '';
+        let dynamicURL = "";
+        let methodName = "";
         let employeeId = $("#employeeId").val();
 
         if (employeeId) {
@@ -59,6 +59,7 @@
             cache: false,
             contentType: 'application/json',
             data: JSON.stringify({
+                employeeId: employeeId,
                 firstName: $("#firstName").val(),
                 lastName: $("#lastName").val(),
                 departmentID: $("#departmentID").val(),
@@ -98,7 +99,6 @@
             $("#jobTitle").val(data.jobTitle);
             $("#gender").val(data.gender);
             $("#dataOfBirth").val(data.dataOfBirth);
-            showEmployees();
         })
     }
 
